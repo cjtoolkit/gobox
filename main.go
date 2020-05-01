@@ -41,7 +41,7 @@ func main() {
 	}
 
 	if len(os.Args) < 2 {
-		log.Fatal("Need at least one argument")
+		return
 	}
 
 	cmdName := os.Args[1]
