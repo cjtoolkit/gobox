@@ -20,10 +20,7 @@ func Exec(goboxData model.TomlSupplement, cachePath, binPath string) {
 		log.Fatal(err)
 	}
 
-	goCmd := os.Getenv("GOBOXCMD")
-	if goCmd == "" {
-		goCmd = "go"
-	}
+	goCmd := goboxData.Cmd()
 
 	err = createFile(cachePath+filepath.FromSlash("/"+"main.go"), model.MainGo)
 	if err != nil {

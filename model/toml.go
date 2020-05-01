@@ -5,15 +5,21 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"log"
-	"os"
 	"os/exec"
 	"sort"
-	"strings"
 )
 
 type TomlSupplement struct {
+	GoCmd   string       `toml:"gogo"`
 	Locals  []TomlLocal  `toml:"local"`
 	Modules []TomlModule `toml:"module"`
+}
+
+func (t TomlSupplement) Cmd() string {
+	if t.GoCmd == "" {
+		return "go"
+	}
+	return t.GoCmd
 }
 
 func (t TomlSupplement) Hash() string {
@@ -23,7 +29,7 @@ func (t TomlSupplement) Hash() string {
 	}
 	sort.Strings(i)
 	hash := sha256.New()
-	fmt.Fprint(hash, getGoVersion(), i)
+	fmt.Fprint(hash, getGoVersion(t.Cmd()), i)
 	var v []string
 	for _, module := range t.Modules {
 		v = append(v, module.hashData())
@@ -63,11 +69,7 @@ func (t TomlModule) hashData() string {
 	return fmt.Sprint(t.Repo, t.Tag, t.BinPath, i)
 }
 
-func getGoVersion() string {
-	goCmd := strings.TrimSpace(os.Getenv("GOBOXCMD"))
-	if goCmd == "" {
-		goCmd = "go"
-	}
+func getGoVersion(goCmd string) string {
 	b := &bytes.Buffer{}
 	cmd := exec.Command(goCmd, "version")
 	cmd.Stdout = b

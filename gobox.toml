@@ -1,3 +1,5 @@
+goCmd = "gogo"
+
 [[local]]
 binPath = "tools"
 install = "."
