@@ -10,7 +10,7 @@ import (
 )
 
 type TomlSupplement struct {
-	GoCmd   string       `toml:"gogo"`
+	GoCmd   string       `toml:"goCmd"`
 	Locals  []TomlLocal  `toml:"local"`
 	Modules []TomlModule `toml:"module"`
 }
