@@ -30,7 +30,7 @@ func (t TomlSupplement) Hash() string {
 	}
 	sort.Strings(i)
 	hash := sha256.New()
-	fmt.Fprint(hash, t.Cmd(), i)
+	fmt.Fprint(hash, getGoVersion(t.Cmd()), i)
 	var v []string
 	for _, module := range t.Modules {
 		v = append(v, module.hashData())
