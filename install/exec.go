@@ -17,11 +17,6 @@ func Exec(goboxData model.TomlSupplement, cachePath, binPath, projectPath string
 
 	goCmd := goboxData.Cmd()
 
-	err = os.Chdir(projectPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	err = os.MkdirAll(binPath, 0755)
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +34,7 @@ func Exec(goboxData model.TomlSupplement, cachePath, binPath, projectPath string
 	}
 
 	if goboxData.Locals != nil {
-		err := execInternal(goboxData.Locals, goCmd, binPath)
+		err := execInternal(goboxData.Locals, goCmd, binPath, projectPath)
 		if err != nil {
 			cleanPath(cachePath)
 			log.Fatal(err)
