@@ -14,6 +14,9 @@ func Exec(goboxData model.TomlSupplement, cachePath, binPath, projectPath string
 		log.Fatal(err)
 	}
 	defer os.Chdir(curWd)
+
+	goCmd := goboxData.Cmd()
+
 	err = os.Chdir(projectPath)
 	if err != nil {
 		log.Fatal(err)
@@ -23,8 +26,6 @@ func Exec(goboxData model.TomlSupplement, cachePath, binPath, projectPath string
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	goCmd := goboxData.Cmd()
 
 	err = createFile(cachePath+filepath.FromSlash("/"+"main.go"), model.MainGo)
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	"log"
 	"os/exec"
 	"sort"
+	"strings"
 )
 
 type TomlSupplement struct {
@@ -19,7 +20,7 @@ func (t TomlSupplement) Cmd() string {
 	if t.GoCmd == "" {
 		return "go"
 	}
-	return t.GoCmd
+	return strings.Split(getGoVersion(t.GoCmd), " ")[2]
 }
 
 func (t TomlSupplement) Hash() string {
