@@ -8,12 +8,16 @@ import (
 	"github.com/cjtoolkit/gobox/model"
 )
 
-func Exec(goboxData model.TomlSupplement, cachePath, binPath string) {
+func Exec(goboxData model.TomlSupplement, cachePath, binPath, projectPath string) {
 	curWd, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer os.Chdir(curWd)
+	err = os.Chdir(projectPath)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	err = os.MkdirAll(binPath, 0755)
 	if err != nil {

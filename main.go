@@ -25,6 +25,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
+
+	projectPath := filepath.Dir(goboxPath)
 
 	goboxData := model.TomlSupplement{}
 
@@ -37,7 +40,7 @@ func main() {
 	binPath := cachePath + filepath.FromSlash("/bin")
 
 	if _, err := os.Stat(cachePath); os.IsNotExist(err) {
-		install.Exec(goboxData, cachePath, binPath)
+		install.Exec(goboxData, cachePath, binPath, projectPath)
 	}
 
 	if len(os.Args) < 2 {

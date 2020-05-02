@@ -10,8 +10,8 @@ import (
 	"github.com/cjtoolkit/gobox/tool"
 )
 
-func execExternal(modules []model.TomlModule, goCmd, cachdPath, binPath string) error {
-	err := os.Chdir(cachdPath)
+func execExternal(modules []model.TomlModule, goCmd, cachePath, binPath string) error {
+	err := os.Chdir(cachePath)
 	if err != nil {
 		return err
 	}
@@ -25,7 +25,7 @@ func execExternal(modules []model.TomlModule, goCmd, cachdPath, binPath string) 
 			moduleBinPath += filepath.FromSlash("/" + strings.Trim(module.BinPath, "/"))
 		}
 		for _, install := range module.Installs {
-			err := installExternal(module, install, goCmd, cachdPath, moduleBinPath)
+			err := installExternal(module, install, goCmd, moduleBinPath)
 			if err != nil {
 				return err
 			}
@@ -34,7 +34,7 @@ func execExternal(modules []model.TomlModule, goCmd, cachdPath, binPath string) 
 	return nil
 }
 
-func installExternal(module model.TomlModule, install, goCmd, cachePath, binPath string) error {
+func installExternal(module model.TomlModule, install, goCmd, binPath string) error {
 	output := binPath
 	if install == "" || install == "." {
 		output += filepath.FromSlash("/" + filepath.Base(module.Repo))
@@ -46,6 +46,5 @@ func installExternal(module model.TomlModule, install, goCmd, cachePath, binPath
 	if runtime.GOOS == "windows" {
 		output += ".exe"
 	}
-	tool.RunCommand("", "", goCmd, "build", "-o", output, "-i", install)
-	return nil
+	return tool.RunCommand("", "", goCmd, "build", "-o", output, "-i", install)
 }
