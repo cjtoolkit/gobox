@@ -5,7 +5,7 @@ Tool manager for use with go generate.
 ## Installation
 
 ```sh
-$ go get github.com/cjtoolkit/gnode
+$ go get github.com/cjtoolkit/gobox
 ```
 
 # Using gobox
