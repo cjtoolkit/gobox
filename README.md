@@ -32,7 +32,7 @@ On top of the go source file add on top. This is just an example
 //go:generate gobox tools/embedder internal generated_const.go resources/*
 ```
 
-I the tools are not installed it, will install automatically.
+If the tools are not installed it, will install automatically.
 
 ## Note
 
