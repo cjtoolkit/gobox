@@ -36,6 +36,6 @@ If the tools are not installed it, will install automatically.
 
 ## Note
 
-It was designed for use in a development environment and is not intented to 
+It was designed for use in a development environment and is not intended to 
 be used in production or deployment environment.  It's meant to install tools for
 the developers to use with `go generate`.
